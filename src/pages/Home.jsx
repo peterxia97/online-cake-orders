@@ -100,7 +100,7 @@ export default function Home() {
               <img src={item.image} alt={item.name} />
 
               <div className="product-name">{item.name}</div>
-              <div className="product-price">¥ {item.price}</div>
+              <div className="product-price">$ {item.price}</div>
               <p>{item.description}</p>
 
               <button onClick={() => setSelectedProduct(item)}>
@@ -140,7 +140,7 @@ function OrderForm({ product }) {
       <div className="product-card" style={{ marginTop: 32 }}>
         <h3>✅ 下单成功</h3>
 
-        <p>请添加我的服微信确认制作与取货时间：</p>
+        <p>请添加我的微信确认制作与取货时间：</p>
 
         {/* ✅ 订单信息展示 */}
         <pre
