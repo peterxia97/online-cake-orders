@@ -121,14 +121,75 @@ export default function Home() {
 function OrderForm({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [note, setNote] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const total = product.price * quantity;
 
-  return (
-    <div className="product-card" style={{ marginTop: 20 }}>
-      <h3>下单：{product.name}</h3>
+  const orderText = `
+多糖星球订单
+商品：${product.name}
+数量：${quantity}
+单价：$${product.price}
+合计：$${total}
+备注：${note || "无"}
+`.trim();
 
-      <label>数量：</label>
+  // ✅ 下单成功后的展示
+  if (submitted) {
+    return (
+      <div className="product-card" style={{ marginTop: 32 }}>
+        <h3>✅ 下单成功</h3>
+
+        <p>请添加我的服微信确认制作与取货时间：</p>
+
+        {/* ✅ 订单信息展示 */}
+        <pre
+          style={{
+            background: "#f7f7f7",
+            padding: 12,
+            fontSize: 13,
+            whiteSpace: "pre-wrap",
+            marginTop: 12
+          }}
+        >
+          {orderText}
+        </pre>
+
+        {/* ✅ 复制订单 */}
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(orderText);
+          }}
+        >
+          📋 复制订单信息
+        </button>
+
+        {/* ✅ 二维码 */}
+        <div style={{ textAlign: "center", marginTop: 24 }}>
+          <p style={{ fontSize: 14, marginBottom: 8 }}>
+            扫码添加我的微信
+          </p>
+
+          <img
+            src="/images/wechat-qr.png"
+            alt="微信我的二维码"
+            style={{ width: 200 }}
+          />
+
+          <p style={{ fontSize: 13, marginTop: 8 }}>
+            微信号：<strong>TayloveTay</strong>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ 下单前表单
+  return (
+    <div className="product-card" style={{ marginTop: 32 }}>
+      <h3>Confirm Order</h3>
+
+      <label>Quantity</label>
       <input
         type="number"
         min="1"
@@ -136,28 +197,24 @@ function OrderForm({ product }) {
         onChange={(e) => setQuantity(Number(e.target.value))}
       />
 
-      <label>备注（口味 / 祝福语 / 自提时间）：</label>
+      <label>Notes (message on cake / pickup time)</label>
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />
 
       <p>
-        <strong>合计：¥ {total}</strong>
+        <strong>Total: ${total}</strong>
       </p>
 
       <button
         onClick={() => {
-          alert(
-            `✅ 下单成功！\n\n商品：${product.name}\n数量：${quantity}\n合计：¥${total}\n备注：${note}\n\n请添加微信联系我确认`
-          );
+          setSubmitted(true);
+          navigator.clipboard.writeText(orderText);
         }}
       >
-        提交订单
+        ✅ Place Order
       </button>
-      
-      {/* ✅ 固定联系我下单按钮 */}
-      <ContactButton />
     </div>
   );
 }
