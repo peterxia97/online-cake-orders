@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  font-family: system-ui;
+  background-color: #fffaf3;
+}
+
+.container {
+  padding: 20px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f2c94c;
+  font-size: 16px;
+}
