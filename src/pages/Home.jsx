@@ -168,6 +168,9 @@ function ContactButton() {
     <div
       className="contact-button"
       onClick={() => {
+        alert(
+          "请添加微信：TayloveTay\n\n复制微信号后，在微信中搜索即可联系客服确认订单"
+        );
         window.location.href = "weixin://";
       }}
     >
