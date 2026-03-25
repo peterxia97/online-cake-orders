@@ -187,9 +187,9 @@ function OrderForm({ product }) {
   // ✅ 下单前表单
   return (
     <div className="product-card" style={{ marginTop: 32 }}>
-      <h3>Confirm Order</h3>
+      <h3>确认订单</h3>
 
-      <label>Quantity</label>
+      <label>数量</label>
       <input
         type="number"
         min="1"
@@ -197,14 +197,14 @@ function OrderForm({ product }) {
         onChange={(e) => setQuantity(Number(e.target.value))}
       />
 
-      <label>Notes (message on cake / pickup time)</label>
+      <label>备注 (蛋糕上的信息 / 取货时间)</label>
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />
 
       <p>
-        <strong>Total: ${total}</strong>
+        <strong>合计: ${total}</strong>
       </p>
 
       <button
@@ -213,7 +213,7 @@ function OrderForm({ product }) {
           navigator.clipboard.writeText(orderText);
         }}
       >
-        ✅ Place Order
+        ✅ 下单
       </button>
     </div>
   );
