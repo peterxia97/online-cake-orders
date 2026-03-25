@@ -149,32 +149,40 @@ function OrderForm({ product }) {
       <button
         onClick={() => {
           alert(
-            `✅ 下单成功！\n\n商品：${product.name}\n数量：${quantity}\n合计：¥${total}\n备注：${note}\n\n请添加微信联系客服确认`
+            `✅ 下单成功！\n\n商品：${product.name}\n数量：${quantity}\n合计：¥${total}\n备注：${note}\n\n请添加微信联系我确认`
           );
         }}
       >
         提交订单
       </button>
       
-      {/* ✅ 固定联系客服按钮 */}
+      {/* ✅ 固定联系我下单按钮 */}
       <ContactButton />
     </div>
   );
 }
-/* ===== 固定联系客服悬浮按钮 ===== */
+/* ===== 固定联系我下单悬浮按钮 ===== */
 
 function ContactButton() {
+  const wechatId = "TayloveTay"; // ✅ 换成你的微信号
+
   return (
     <div
       className="contact-button"
       onClick={() => {
+        // ① 自动复制微信号
+        navigator.clipboard.writeText(wechatId);
+
+        // ② 给用户明确提示
         alert(
-          "请添加微信：TayloveTay\n\n复制微信号后，在微信中搜索即可联系客服确认订单"
+          `我的微信号已复制：${wechatId}\n\n请打开微信 → 搜索 → 添加我确认订单`
         );
+
+        // ③ 尝试跳回微信（成功更好，不成功也不影响）
         window.location.href = "weixin://";
       }}
     >
-      💬 联系客服
+      💬 联系我
     </div>
   );
 }
