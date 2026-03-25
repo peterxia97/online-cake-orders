@@ -162,12 +162,13 @@ function OrderForm({ product }) {
   );
 }
 /* ===== 固定联系客服悬浮按钮 ===== */
+
 function ContactButton() {
   return (
     <div
       className="contact-button"
       onClick={() => {
-        alert("请添加微信：duotangplanet\n联系客服下单");
+        window.location.href = "weixin://";
       }}
     >
       💬 联系客服
