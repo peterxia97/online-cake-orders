@@ -3,36 +3,121 @@ import { products } from "../data/products";
 
 export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [category, setCategory] = useState("all");
+
+  // 根据分类筛选商品
+  const filteredProducts = products.filter(
+    (item) => category === "all" || item.category === category
+  );
 
   return (
     <div className="container">
-      <h2>多糖星球</h2>
-      <p>蛋糕 & 饮品线上下单</p>
+      {/* ===== 品牌标题 ===== */}
+      <h1 className="brand-title">多糖星球</h1>
+      <p className="brand-subtitle">
+        定制蛋糕 · 美味奶茶 · 微信下单
+      </p>
 
-      {products.map((item) => (
-        <div key={item.id}>
-          <img
-            src={item.image}
-            alt={item.name}
-            style={{ width: "100%", borderRadius: 8 }}
-          />
+      {/* ===== 左右布局 ===== */}
+      <div className="layout">
+        {/* ===== 左侧分类 ===== */}
+        <div className="category-menu">
+          <button
+            className={category === "all" ? "active" : ""}
+            onClick={() => {
+              setCategory("all");
+              setSelectedProduct(null);
+            }}
+          >
+            全部
+          </button>
 
-          <h3>{item.name}</h3>
-          <p>{item.description}</p>
-          <p><strong>¥ {item.price}</strong></p>
+          <button
+            className={category === "cake1" ? "active" : ""}
+            onClick={() => {
+              setCategory("cake1");
+              setSelectedProduct(null);
+            }}
+          >
+            生日蛋糕
+          </button>
 
-          <button onClick={() => setSelectedProduct(item)}>
-            选择
+          <button
+            className={category === "cake2" ? "active" : ""}
+            onClick={() => {
+              setCategory("cake2");
+              setSelectedProduct(null);
+            }}
+          >
+            草莓蛋糕
+          </button>
+
+          <button
+            className={category === "cake3" ? "active" : ""}
+            onClick={() => {
+              setCategory("cake3");
+              setSelectedProduct(null);
+            }}
+          >
+            巧克力蛋糕
+          </button>
+
+          <button
+            className={category === "milktea1" ? "active" : ""}
+            onClick={() => {
+              setCategory("milktea1");
+              setSelectedProduct(null);
+            }}
+          >
+            原味奶茶
+          </button>
+
+          <button
+            className={category === "milktea2" ? "active" : ""}
+            onClick={() => {
+              setCategory("milktea2");
+              setSelectedProduct(null);
+            }}
+          >
+            珍珠奶茶
+          </button>
+
+          <button
+            className={category === "milktea3" ? "active" : ""}
+            onClick={() => {
+              setCategory("milktea3");
+              setSelectedProduct(null);
+            }}
+          >
+            抹茶奶茶
           </button>
         </div>
-      ))}
 
-      {selectedProduct && (
-        <OrderForm product={selectedProduct} />
-      )}
+        {/* ===== 右侧商品列表 ===== */}
+        <div className="product-list">
+          {filteredProducts.map((item) => (
+            <div key={item.id} className="product-card">
+              <img src={item.image} alt={item.name} />
+
+              <div className="product-name">{item.name}</div>
+              <div className="product-price">¥ {item.price}</div>
+              <p>{item.description}</p>
+
+              <button onClick={() => setSelectedProduct(item)}>
+                选择
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ===== 下单表单 ===== */}
+      {selectedProduct && <OrderForm product={selectedProduct} />}
     </div>
   );
 }
+
+/* ===== 下单表单组件 ===== */
 function OrderForm({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [note, setNote] = useState("");
@@ -40,10 +125,8 @@ function OrderForm({ product }) {
   const total = product.price * quantity;
 
   return (
-    <div style={{ marginTop: 30 }}>
+    <div className="product-card" style={{ marginTop: 20 }}>
       <h3>下单：{product.name}</h3>
-
-      <p>单价：¥ {product.price}</p>
 
       <label>数量：</label>
       <input
@@ -59,17 +142,35 @@ function OrderForm({ product }) {
         onChange={(e) => setNote(e.target.value)}
       />
 
-      <p><strong>合计：¥ {total}</strong></p>
+      <p>
+        <strong>合计：¥ {total}</strong>
+      </p>
 
       <button
         onClick={() => {
           alert(
-            `✅ 下单成功！\n\n商品：${product.name}\n数量：${quantity}\n合计：¥${total}\n备注：${note}\n\n请添加微信：多糖星球客服\n确认订单并完成付款`
+            `✅ 下单成功！\n\n商品：${product.name}\n数量：${quantity}\n合计：¥${total}\n备注：${note}\n\n请添加微信联系客服确认`
           );
         }}
       >
         提交订单
       </button>
+      
+      {/* ✅ 固定联系客服按钮 */}
+      <ContactButton />
+    </div>
+  );
+}
+/* ===== 固定联系客服悬浮按钮 ===== */
+function ContactButton() {
+  return (
+    <div
+      className="contact-button"
+      onClick={() => {
+        alert("请添加微信：duotangplanet\n联系客服下单");
+      }}
+    >
+      💬 联系客服
     </div>
   );
 }

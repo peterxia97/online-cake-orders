@@ -1,29 +1,108 @@
 body {
   margin: 0;
-  font-family: system-ui;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Helvetica Neue", Arial, sans-serif;
   background-color: #fffaf3;
+  color: #333;
 }
 
+/* 页面整体容器 */
 .container {
-  padding: 20px;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 16px;
 }
 
+/* 品牌标题 */
+.brand-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.brand-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+/* 按钮统一风格 */
 button {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background-color: #f2c94c;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* 选中分类高亮 */
+button.active {
+  background-color: #e0b836;
+}
+
+/* 商品卡片 */
+.product-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+/* 商品图片 */
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+/* 商品名 & 价格 */
+.product-name {
   font-size: 16px;
+  font-weight: 500;
 }
 
-img {
-  margin-bottom: 10px;
+.product-price {
+  font-size: 15px;
+  color: #d35400;
+  margin: 4px 0;
 }
 
-textarea,
-input {
-  padding: 8px;
+/* 输入框 */
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
   margin-bottom: 10px;
+}
+/* 左右布局 */
+.layout {
+  display: flex;
+  gap: 12px;
+}
+
+/* 左侧分类栏 */
+.category-menu {
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-menu button {
+  margin-bottom: 8px;
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+
+.category-menu button.active {
+  background-color: #f2c94c;
+}
+
+/* 右侧商品区 */
+.product-list {
+  flex: 1;
 }
