@@ -1,108 +1,126 @@
+/* ===== 全站基础 ===== */
 body {
   margin: 0;
+  background-color: #fdfaf6;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
     "Helvetica Neue", Arial, sans-serif;
-  background-color: #fffaf3;
-  color: #333;
+  color: #222;
 }
 
-/* 页面整体容器 */
 .container {
-  max-width: 420px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 32px 20px;
 }
 
-/* 品牌标题 */
+/* ===== 品牌标题 ===== */
 .brand-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 6px;
 }
 
 .brand-subtitle {
   font-size: 14px;
-  color: #888;
-  margin-bottom: 16px;
+  color: #777;
+  margin-bottom: 32px;
 }
 
-/* 按钮统一风格 */
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f2c94c;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-/* 选中分类高亮 */
-button.active {
-  background-color: #e0b836;
-}
-
-/* 商品卡片 */
-.product-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 12px;
-  margin-bottom: 16px;
-}
-
-/* 商品图片 */
-.product-card img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 8px;
-}
-
-/* 商品名 & 价格 */
-.product-name {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.product-price {
-  font-size: 15px;
-  color: #d35400;
-  margin: 4px 0;
-}
-
-/* 输入框 */
-input,
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-}
-/* 左右布局 */
+/* ===== 左右布局 ===== */
 .layout {
   display: flex;
-  gap: 12px;
+  gap: 32px;
 }
 
-/* 左侧分类栏 */
+/* ===== 左侧分类菜单 ===== */
+
 .category-menu {
-  width: 110px;
-  display: flex;
-  flex-direction: column;
+  width: 180px;
+
+  position: sticky;  /* ✅ 关键 */
+  top: 20px;          /* ✅ 距顶部留一点空间 */
+
+  align-self: flex-start;
 }
 
 .category-menu button {
-  margin-bottom: 8px;
-  background-color: #fff;
-  border: 1px solid #eee;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
 }
 
 .category-menu button.active {
-  background-color: #f2c94c;
+  color: #000;
+  font-weight: 500;
 }
 
-/* 右侧商品区 */
+/* ===== 右侧商品列表 ===== */
 .product-list {
   flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+/* ===== 商品卡片 ===== */
+.product-card {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 16px;
+}
+
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.product-name {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+/* ===== 按钮（极简） ===== */
+.product-card button {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 8px 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ===== 下单表单 ===== */
+input,
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* ===== 固定联系客服按钮 ===== */
+.contact-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 999;
 }
