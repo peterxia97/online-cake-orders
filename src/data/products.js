@@ -5,7 +5,7 @@ export const products = [
     name: "伯爵红茶",
     category: "flavorCream",
     type: "cake", // ✅ 一定要有
-    image: "/images/earl-grey.jpg",
+    image: "/images/伯爵红茶.jpg",
     sizes: {
       6: 168,
       8: 238
@@ -16,7 +16,7 @@ export const products = [
     name: "抹茶",
     category: "flavorCream",
     type: "cake", // ✅ 一定要有
-    image: "/images/matcha.jpg",
+    image: "/images/抹茶.jpg",
     sizes: {
       6: 168,
       8: 238
@@ -29,7 +29,7 @@ export const products = [
     name: "蓝莓",
     category: "fruitCream",
     type: "cake", // ✅ 一定要有
-    image: "/images/blueberry.jpg",
+    image: "/images/蓝莓.jpg",
     sizes: {
       6: 188,
       8: 268
@@ -40,7 +40,7 @@ export const products = [
     name: "葡萄",
     category: "fruitCream",
     type: "cake", // ✅ 一定要有
-    image: "/images/grape.jpg",
+    image: "/images/葡萄.jpg",
     sizes: {
       6: 188,
       8: 268
