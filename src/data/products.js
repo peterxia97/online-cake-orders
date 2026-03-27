@@ -4,7 +4,7 @@ export const products = [
     id: 1,
     name: "伯爵红茶",
     category: "flavorCream",
-    image: "/images/earl-grey.jpg",
+    image: "/images/伯爵红茶.jpg",
     sizes: {
       6: 168,
       8: 238
@@ -14,7 +14,7 @@ export const products = [
     id: 2,
     name: "抹茶",
     category: "flavorCream",
-    image: "/images/matcha.jpg",
+    image: "/images/抹茶.jpg",
     sizes: {
       6: 168,
       8: 238
@@ -26,7 +26,7 @@ export const products = [
     id: 3,
     name: "蓝莓",
     category: "fruitCream",
-    image: "/images/blueberry.jpg",
+    image: "/images/蓝莓.jpg",
     sizes: {
       6: 188,
       8: 268
@@ -36,7 +36,7 @@ export const products = [
     id: 4,
     name: "葡萄",
     category: "fruitCream",
-    image: "/images/grape.jpg",
+    image: "/images/葡萄.jpg",
     sizes: {
       6: 188,
       8: 268
