@@ -10,21 +10,20 @@ const CATEGORY_MAP = {
 export default function Home() {
   const [category, setCategory] = useState("flavorCream");
   const [cart, setCart] = useState([]);
-  const [popup, setPopup] = useState(null);
+  const [popup, setPopup] = useState(null); // 当前选中的蛋糕
   const [size, setSize] = useState(6);
   const [qty, setQty] = useState(1);
   const [showCart, setShowCart] = useState(false);
 
   const list = products.filter(p => p.category === category);
 
-  /* ===== 加入购物车（自动累加）===== */
+  /* ========= 加入购物车（同商品自动累加） ========= */
   const addToCart = (item, extra = {}) => {
     setCart(prev => {
       const index = prev.findIndex(
         i =>
           i.id === item.id &&
-          (item.type === "topping" ||
-            (i.size === extra.size))
+          (item.type === "topping" || i.size === extra.size)
       );
 
       if (index > -1) {
@@ -45,12 +44,9 @@ export default function Home() {
     });
   };
 
-  const total = cart.reduce(
-    (s, i) => s + i.price * i.quantity,
-    0
-  );
+  const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
-  /* ===== 下单文本（分组）===== */
+  /* ========= 生成订单文本（蛋糕 / 加料分组） ========= */
   const orderText = () => {
     const cakes = cart.filter(i => i.type === "cake");
     const toppings = cart.filter(i => i.type === "topping");
@@ -82,35 +78,34 @@ export default function Home() {
       <div style={styles.header}>多糖星球</div>
 
       <div style={styles.body}>
-        {/* 左侧分类 */}
+        {/* 左侧大类 */}
         <div style={styles.left}>
-          {Object.entries(CATEGORY_MAP).map(([k, v]) => (
+          {Object.entries(CATEGORY_MAP).map(([key, label]) => (
             <div
-              key={k}
+              key={key}
               style={{
                 ...styles.category,
-                ...(category === k ? styles.activeCategory : {})
+                ...(category === key ? styles.activeCategory : {})
               }}
-              onClick={() => setCategory(k)}
+              onClick={() => setCategory(key)}
             >
-              {v}
+              {label}
             </div>
           ))}
         </div>
 
-        {/* 商品列表 */}
+        {/* 右侧商品列表 */}
         <div style={styles.right}>
           {list.map(item => (
             <div key={item.id} style={styles.card}>
               <img src={item.image} style={styles.img} />
+
               <div style={styles.info}>
-                <div>{item.name}</div>
+                <div style={styles.name}>{item.name}</div>
                 <div style={styles.price}>
-                  ￥
-                  {item.type === "cake"
-                    ? item.sizes[6]
-                    : item.price}
+                  ￥{item.type === "cake" ? item.sizes[6] : item.price}
                 </div>
+
                 <button
                   style={styles.add}
                   onClick={() => {
@@ -131,7 +126,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 底部购物车栏 */}
+      {/* ========= 底部购物车栏 ========= */}
       {cart.length > 0 && (
         <div style={styles.cartBar} onClick={() => setShowCart(true)}>
           <span>已选 {cart.length} 件</span>
@@ -139,16 +134,18 @@ export default function Home() {
         </div>
       )}
 
-      {/* 购物车弹窗 */}
+      {/* ========= 购物车弹窗 ========= */}
       {showCart && (
         <div style={styles.sheet}>
           <h3>购物车</h3>
+
           {cart.map((i, idx) => (
             <div key={idx} style={styles.cartItem}>
               <span>
                 {i.name}
                 {i.size && ` ${i.size}寸`}
               </span>
+
               <div>
                 <button
                   onClick={() =>
@@ -163,7 +160,9 @@ export default function Home() {
                 >
                   -
                 </button>
-                <span>{i.quantity}</span>
+
+                <span style={{ margin: "0 6px" }}>{i.quantity}</span>
+
                 <button
                   onClick={() =>
                     setCart(c =>
@@ -175,6 +174,7 @@ export default function Home() {
                 >
                   +
                 </button>
+
                 <button
                   onClick={() =>
                     setCart(c => c.filter((_, j) => j !== idx))
@@ -185,11 +185,12 @@ export default function Home() {
               </div>
             </div>
           ))}
+
           <button
             style={styles.submit}
             onClick={() => {
               navigator.clipboard.writeText(orderText());
-              alert("订单已复制，请微信联系我");
+              alert("订单信息已复制，请微信联系我确认");
               setShowCart(false);
             }}
           >
@@ -198,19 +199,39 @@ export default function Home() {
         </div>
       )}
 
-      {/* 规格弹窗 */}
+      {/* ========= 蛋糕规格弹窗（✅ 这里已修复价格显示） ========= */}
       {popup && (
         <div style={styles.sheet}>
           <h3>{popup.name}</h3>
-          <div>
-            <button onClick={() => setSize(6)}>6寸</button>
-            <button onClick={() => setSize(8)}>8寸</button>
+
+          <div style={{ marginBottom: 8 }}>
+            尺寸：
+            <button
+              style={size === 6 ? styles.active : styles.btn}
+              onClick={() => setSize(6)}
+            >
+              6 寸 ￥{popup.sizes[6]}
+            </button>
+            <button
+              style={size === 8 ? styles.active : styles.btn}
+              onClick={() => setSize(8)}
+            >
+              8 寸 ￥{popup.sizes[8]}
+            </button>
           </div>
-          <div>
+
+          <div style={{ marginBottom: 8 }}>
+            数量：
             <button onClick={() => setQty(q => Math.max(1, q - 1))}>-</button>
-            {qty}
+            <span style={{ margin: "0 8px" }}>{qty}</span>
             <button onClick={() => setQty(q => q + 1)}>+</button>
           </div>
+
+          {/* ✅ 关键：动态价格展示 */}
+          <div style={{ color: "#d0021b", fontWeight: "bold" }}>
+            合计：￥{popup.sizes[size] * qty}
+          </div>
+
           <button
             style={styles.submit}
             onClick={() => {
@@ -230,21 +251,23 @@ export default function Home() {
   );
 }
 
-/* ===== 样式（简化版）===== */
+/* ================= 样式 ================= */
 const styles = {
   page: { background: "#f7f7f7", minHeight: "100vh" },
-  header: { padding: 12, textAlign: "center", background: "#fff" },
+  header: { padding: 12, textAlign: "center", background: "#fff", fontWeight: "bold" },
   body: { display: "flex" },
 
   left: { width: 110, background: "#fff" },
-  category: { padding: 14 },
-  activeCategory: { color: "#d0021b", fontWeight: "bold" },
+  category: { padding: 14, fontSize: 13 },
+  activeCategory: { color: "#d0021b", fontWeight: "bold", background: "#fff5f5" },
 
   right: { flex: 1, padding: 10 },
-  card: { display: "flex", background: "#fff", marginBottom: 10, padding: 8 },
-  img: { width: 80, height: 80, borderRadius: 8 },
+  card: { display: "flex", background: "#fff", marginBottom: 10, padding: 8, borderRadius: 10 },
+  img: { width: 80, height: 80, borderRadius: 8, objectFit: "cover" },
+
   info: { flex: 1, marginLeft: 10, position: "relative" },
-  price: { color: "#d0021b" },
+  name: { fontSize: 14 },
+  price: { color: "#d0021b", marginTop: 4 },
   add: { position: "absolute", right: 0, bottom: 0 },
 
   cartBar: {
@@ -255,7 +278,8 @@ const styles = {
     padding: 12,
     background: "#fff",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    borderTop: "1px solid #eee"
   },
 
   sheet: {
@@ -264,20 +288,26 @@ const styles = {
     left: 0,
     right: 0,
     background: "#fff",
-    padding: 12
+    padding: 12,
+    borderTop: "1px solid #ddd"
   },
 
   cartItem: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: 6
+    marginBottom: 8
   },
+
+  btn: { margin: "0 6px" },
+  active: { margin: "0 6px", background: "#d0021b", color: "#fff" },
 
   submit: {
     width: "100%",
+    marginTop: 10,
     background: "#d0021b",
     color: "#fff",
     padding: 10,
-    border: "none"
+    border: "none",
+    borderRadius: 6
   }
 };
