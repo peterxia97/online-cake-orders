@@ -10,14 +10,14 @@ const CATEGORY_MAP = {
 export default function Home() {
   const [category, setCategory] = useState("flavorCream");
   const [cart, setCart] = useState([]);
-  const [popup, setPopup] = useState(null); // 当前选中的蛋糕
+  const [popup, setPopup] = useState(null);
   const [size, setSize] = useState(6);
   const [qty, setQty] = useState(1);
   const [showCart, setShowCart] = useState(false);
 
   const list = products.filter(p => p.category === category);
 
-  /* ========= 加入购物车（同商品自动累加） ========= */
+  /* ===== 加入购物车（自动累加） ===== */
   const addToCart = (item, extra = {}) => {
     setCart(prev => {
       const index = prev.findIndex(
@@ -44,9 +44,13 @@ export default function Home() {
     });
   };
 
-  const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  /* ===== 总价 ===== */
+  const total = cart.reduce(
+    (sum, i) => sum + i.price * i.quantity,
+    0
+  );
 
-  /* ========= 生成订单文本（蛋糕 / 加料分组） ========= */
+  /* ===== 订单文本（分组） ===== */
   const orderText = () => {
     const cakes = cart.filter(i => i.type === "cake");
     const toppings = cart.filter(i => i.type === "topping");
@@ -78,23 +82,23 @@ export default function Home() {
       <div style={styles.header}>多糖星球</div>
 
       <div style={styles.body}>
-        {/* 左侧大类 */}
+        {/* 左侧分类 */}
         <div style={styles.left}>
-          {Object.entries(CATEGORY_MAP).map(([key, label]) => (
+          {Object.entries(CATEGORY_MAP).map(([k, v]) => (
             <div
-              key={key}
+              key={k}
               style={{
                 ...styles.category,
-                ...(category === key ? styles.activeCategory : {})
+                ...(category === k ? styles.activeCategory : {})
               }}
-              onClick={() => setCategory(key)}
+              onClick={() => setCategory(k)}
             >
-              {label}
+              {v}
             </div>
           ))}
         </div>
 
-        {/* 右侧商品列表 */}
+        {/* 商品列表 */}
         <div style={styles.right}>
           {list.map(item => (
             <div key={item.id} style={styles.card}>
@@ -126,15 +130,17 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ========= 底部购物车栏 ========= */}
+      {/* ===== 底部购物车栏 ===== */}
       {cart.length > 0 && (
         <div style={styles.cartBar} onClick={() => setShowCart(true)}>
           <span>已选 {cart.length} 件</span>
-          <span>￥{total}</span>
+          <span style={{ color: "#d0021b", fontWeight: "bold" }}>
+            ￥{total}
+          </span>
         </div>
       )}
 
-      {/* ========= 购物车弹窗 ========= */}
+      {/* ===== 购物车弹窗（✅ 显示总价）===== */}
       {showCart && (
         <div style={styles.sheet}>
           <h3>购物车</h3>
@@ -186,6 +192,12 @@ export default function Home() {
             </div>
           ))}
 
+          {/* ✅ 总价区域（重点） */}
+          <div style={styles.cartTotal}>
+            <span>合计：</span>
+            <span>￥{total}</span>
+          </div>
+
           <button
             style={styles.submit}
             onClick={() => {
@@ -199,7 +211,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* ========= 蛋糕规格弹窗（✅ 这里已修复价格显示） ========= */}
+      {/* ===== 蛋糕规格弹窗 ===== */}
       {popup && (
         <div style={styles.sheet}>
           <h3>{popup.name}</h3>
@@ -227,7 +239,6 @@ export default function Home() {
             <button onClick={() => setQty(q => q + 1)}>+</button>
           </div>
 
-          {/* ✅ 关键：动态价格展示 */}
           <div style={{ color: "#d0021b", fontWeight: "bold" }}>
             合计：￥{popup.sizes[size] * qty}
           </div>
@@ -251,7 +262,7 @@ export default function Home() {
   );
 }
 
-/* ================= 样式 ================= */
+/* ===== 样式 ===== */
 const styles = {
   page: { background: "#f7f7f7", minHeight: "100vh" },
   header: { padding: 12, textAlign: "center", background: "#fff", fontWeight: "bold" },
@@ -264,7 +275,6 @@ const styles = {
   right: { flex: 1, padding: 10 },
   card: { display: "flex", background: "#fff", marginBottom: 10, padding: 8, borderRadius: 10 },
   img: { width: 80, height: 80, borderRadius: 8, objectFit: "cover" },
-
   info: { flex: 1, marginLeft: 10, position: "relative" },
   name: { fontSize: 14 },
   price: { color: "#d0021b", marginTop: 4 },
@@ -296,6 +306,14 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: 8
+  },
+
+  cartTotal: {
+    display: "flex",
+    justifyContent: "space-between",
+    fontWeight: "bold",
+    color: "#d0021b",
+    marginTop: 10
   },
 
   btn: { margin: "0 6px" },
