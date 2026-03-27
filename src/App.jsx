@@ -1,5 +1,12 @@
-import Home from './pages/Home'
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
 
 export default function App() {
-  return <Home />
+  const path = window.location.pathname;
+
+  if (path === "/contact") {
+    return <Contact />;
+  }
+
+  return <Home />;
 }
