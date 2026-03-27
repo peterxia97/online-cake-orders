@@ -43,3 +43,35 @@ export const products = [
     }
   }
 ];
+{
+  id: 101,
+  name: "芒果",
+  category: "topping",
+  type: "topping",
+  price: 12,
+  image: "/images/mango.jpg"
+},
+{
+  id: 102,
+  name: "葡萄",
+  category: "topping",
+  type: "topping",
+  price: 12,
+  image: "/images/grape.jpg"
+},
+{
+  id: 103,
+  name: "蓝莓",
+  category: "topping",
+  type: "topping",
+  price: 15,
+  image: "/images/blueberry.jpg"
+},
+{
+  id: 104,
+  name: "草莓",
+  category: "topping",
+  type: "topping",
+  price: 15,
+  image: "/images/strawberry.jpg"
+}
