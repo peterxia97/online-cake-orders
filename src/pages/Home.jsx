@@ -19,30 +19,33 @@ export default function Home() {
 
   /* ===== 加入购物车（自动累加） ===== */
   const addToCart = (item, extra = {}) => {
-    setCart(prev => {
-      const index = prev.findIndex(
-        i =>
-          i.id === item.id &&
-          (item.type === "topping" || i.size === extra.size)
-      );
+  setCart(prev => {
+    const index = prev.findIndex(
+      i =>
+        i.id === item.id &&
+        (item.type === "topping" || i.size === extra.size)
+    );
 
-      if (index > -1) {
-        const copy = [...prev];
-        copy[index].quantity += extra.quantity || 1;
-        return copy;
+    if (index > -1) {
+      const copy = [...prev];
+      copy[index].quantity += extra.quantity || 1;
+      return copy;
+    }
+
+    return [
+      ...prev,
+      {
+        ...item,
+        size: extra.size,
+        price:
+          item.type === "topping"
+            ? item.price          // ✅ 加料用自身 price
+            : extra.price,         // ✅ 蛋糕用规格 price
+        quantity: extra.quantity || 1
       }
-
-      return [
-        ...prev,
-        {
-          ...item,
-          size: extra.size,
-          price: extra.price,
-          quantity: extra.quantity || 1
-        }
-      ];
-    });
-  };
+    ];
+  });
+};
 
   /* ===== 总价 ===== */
   const total = cart.reduce(
