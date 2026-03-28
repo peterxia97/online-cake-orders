@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Home from "./pages/home"
-import Contact from "./pages/contact";
+import Home from './pages/Home'
+import Contact from "./pages/Contact";
 
 // 加载美团样式
 function loadMeituanStyles() {
