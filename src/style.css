@@ -806,3 +806,25 @@ body {
 .product-list {
   flex: 1;
 }
+/* ✅ 左分类 + 右商品 — 最终强制布局 */
+
+.category-layout {
+  display: flex;
+  height: calc(100vh - 240px); /* header 高度空间 */
+  overflow: hidden;
+}
+
+/* 左侧分类栏 */
+.category-sidebar {
+  width: 120px;
+  min-width: 120px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* 右侧商品列表 */
+.product-list {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
