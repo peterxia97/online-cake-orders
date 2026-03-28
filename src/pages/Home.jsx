@@ -270,24 +270,31 @@ export default function Home() {
         </div>
       </header>
 
-      {/* 分类导航栏 */}
-      <nav className="category-nav">
-        {CATEGORY_ORDER.map(categoryKey => (
-          <button
-            key={categoryKey}
-            className={`category-item ${selectedCategory === categoryKey ? 'active' : ''}`}
-            onClick={() => setSelectedCategory(categoryKey)}
-          >
-            <span>{CATEGORY_MAP[categoryKey].icon}</span>
-            <span>{CATEGORY_MAP[categoryKey].name}</span>
-          </button>
-        ))}
-      </nav>
+      {/* 分类 + 商品 左右布局 */}
+<div className="category-layout">
 
-      {/* 产品列表 */}
-      <main className="product-list">
-        {filteredProducts.map(renderProductCard)}
-      </main>
+  {/* 左侧分类栏（逻辑完全沿用原来的） */}
+  <aside className="category-sidebar">
+    {CATEGORY_ORDER.map(categoryKey => (
+      <div
+        key={categoryKey}
+        className={`category-side-item ${
+          selectedCategory === categoryKey ? "active" : ""
+        }`}
+        onClick={() => setSelectedCategory(categoryKey)}
+      >
+        <span className="icon">{CATEGORY_MAP[categoryKey].icon}</span>
+        <span className="text">{CATEGORY_MAP[categoryKey].name}</span>
+      </div>
+    ))}
+  </aside>
+
+  {/* 右侧产品列表（原逻辑、原函数、不动） */}
+  <main className="product-list">
+    {filteredProducts.map(renderProductCard)}
+  </main>
+
+</div>
 
       {/* 底部购物车栏 */}
       {cart.length > 0 && (

@@ -764,3 +764,45 @@ body {
     padding: 30px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+/* ================= 分类左 + 商品右布局 ================= */
+
+.category-layout {
+  display: flex;
+  min-height: calc(100vh - 200px);
+}
+
+/* 左侧分类栏 */
+.category-sidebar {
+  width: 130px;
+  background: #f8f8f8;
+  border-right: 1px solid #eee;
+}
+
+/* 单个分类项 */
+.category-side-item {
+  padding: 14px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+.category-side-item .icon {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.category-side-item.active {
+  background: #fff;
+  color: #ff6b8b;
+  font-weight: 600;
+  border-left: 4px solid #ff6b8b;
+}
+
+/* 右侧商品区沿用原 product-list */
+.category-layout .product-list {
+  flex: 1;
+  padding: 10px;
+}
