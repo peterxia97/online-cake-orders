@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Home from "./home";
+import Home from "./pages/home"
 import Contact from "./pages/contact";
 
 // 加载美团样式
