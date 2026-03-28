@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { products } from "./data/products";
+import { products } from "../data/products";
 
 // 分类映射（保持你的原有分类）
 const CATEGORY_MAP = {
