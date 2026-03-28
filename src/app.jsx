@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import Home from "./Home_Meituan";
-import Contact from "./pages/Contact";
+import Home from "./home";
+import Contact from "./pages/contact";
 
 // 加载美团样式
 function loadMeituanStyles() {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = '/meituan-style.css';
+  link.href = '/style.css';
   document.head.appendChild(link);
 }
 
