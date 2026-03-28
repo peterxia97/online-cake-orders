@@ -74,18 +74,7 @@ body {
 }
 
 /* 分类导航栏 - 横向滚动 */
-.category-nav {
-    background: white;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    display: flex;
-    gap: 20px;
-}
+
 
 .category-nav::-webkit-scrollbar {
     display: none;
@@ -805,4 +794,15 @@ body {
 .category-layout .product-list {
   flex: 1;
   padding: 10px;
+}
+
+.category-layout {
+  display: flex !important;
+}
+.category-sidebar {
+  width: 140px;
+  min-width: 140px;
+}
+.product-list {
+  flex: 1;
 }
