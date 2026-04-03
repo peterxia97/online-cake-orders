@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { products } from "../data/products";
+import "./style.css"; // 导入样式文件
 
-// 分类映射（保持你的原有分类）
+// 分类映射
 const CATEGORY_MAP = {
   flavorCream: { name: "口味裱花奶油蛋糕", icon: "🍰" },
   fruitCream: { name: "水果裱花奶油蛋糕", icon: "🍓" },
@@ -271,30 +272,28 @@ export default function Home() {
       </header>
 
       {/* 分类 + 商品 左右布局 */}
-<div className="category-layout">
+      <div className="category-layout">
+        {/* 左侧分类栏 */}
+        <aside className="category-sidebar">
+          {CATEGORY_ORDER.map(categoryKey => (
+            <div
+              key={categoryKey}
+              className={`category-side-item ${
+                selectedCategory === categoryKey ? "active" : ""
+              }`}
+              onClick={() => setSelectedCategory(categoryKey)}
+            >
+              <span className="icon">{CATEGORY_MAP[categoryKey].icon}</span>
+              <span className="text">{CATEGORY_MAP[categoryKey].name}</span>
+            </div>
+          ))}
+        </aside>
 
-  {/* 左侧分类栏（逻辑完全沿用原来的） */}
-  <aside className="category-sidebar">
-    {CATEGORY_ORDER.map(categoryKey => (
-      <div
-        key={categoryKey}
-        className={`category-side-item ${
-          selectedCategory === categoryKey ? "active" : ""
-        }`}
-        onClick={() => setSelectedCategory(categoryKey)}
-      >
-        <span className="icon">{CATEGORY_MAP[categoryKey].icon}</span>
-        <span className="text">{CATEGORY_MAP[categoryKey].name}</span>
+        {/* 右侧产品列表 */}
+        <main className="product-list">
+          {filteredProducts.map(renderProductCard)}
+        </main>
       </div>
-    ))}
-  </aside>
-
-  {/* 右侧产品列表（原逻辑、原函数、不动） */}
-  <main className="product-list">
-    {filteredProducts.map(renderProductCard)}
-  </main>
-
-</div>
 
       {/* 底部购物车栏 */}
       {cart.length > 0 && (
@@ -563,39 +562,6 @@ export default function Home() {
       >
         💬
       </button>
-
-      {/* 加载样式 */}
-      <style jsx>{`
-        .contact-button:hover {
-          transform: scale(1.1);
-          box-shadow: 0 6px 16px rgba(255, 107, 139, 0.4);
-        }
-        
-        .success-toast {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: white;
-          border-radius: 12px;
-          padding: 30px;
-          text-align: center;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-          z-index: 5000;
-          animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translate(-50%, -60%);
-          }
-          to {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-          }
-        }
-      `}</style>
     </div>
   );
 }
