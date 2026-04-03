@@ -415,7 +415,7 @@ export default function Home() {
               {[6, 8].map(size => (
                 <div 
                   key={size}
-                  className={`size-option ${size === 6 ? 'selected' : ''}`}
+                  className={`size-option ${(selectedProduct.selectedSize || 6) === size ? 'selected' : ''}`}
                   onClick={() => setSelectedProduct({...selectedProduct, selectedSize: size})}
                 >
                   <span className="size-label">{size}寸</span>
@@ -441,7 +441,7 @@ export default function Home() {
             </div>
             
             <div className="modal-total">
-              合计：${((selectedProduct.sizes[selectedProduct.selectedSize || 6] || selectedProduct.sizes[6]) * (selectedProduct.selectedQty || 1)).toFixed(2)}
+              合计：${(selectedProduct.sizes[selectedProduct.selectedSize || 6] * (selectedProduct.selectedQty || 1)).toFixed(2)}
             </div>
             
             <button 
