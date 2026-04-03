@@ -4,17 +4,17 @@ import "../style.css"; // 导入样式文件
 
 // 分类映射
 const CATEGORY_MAP = {
-  flavorCream: { name: "口味裱花奶油蛋糕", icon: "🍰" },
-  fruitCream: { name: "水果裱花奶油蛋糕", icon: "🍓" },
+  fruitCream: { name: "水果奶油裱花蛋糕", icon: "🍓" },
+  flavorCake: { name: "口味蛋糕", icon: "🍰" },
   topping: { name: "加料", icon: "🧋" }
 };
 
 // 分类显示顺序
-const CATEGORY_ORDER = ["flavorCream", "fruitCream", "topping"];
+const CATEGORY_ORDER = ["fruitCream", "flavorCake", "topping"];
 
 export default function Home() {
   // 状态管理
-  const [selectedCategory, setSelectedCategory] = useState("flavorCream");
+  const [selectedCategory, setSelectedCategory] = useState("fruitCream");
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showCart, setShowCart] = useState(false);
@@ -205,15 +205,15 @@ export default function Home() {
             }}
           />
           <div className="product-tag">
-            {product.category === "flavorCream" ? "口味" : 
-             product.category === "fruitCream" ? "水果" : "加料"}
+            {product.category === "fruitCream" ? "水果" : 
+             product.category === "flavorCake" ? "口味" : "加料"}
           </div>
         </div>
         
         <div className="product-info">
           <h3 className="product-name">{product.name}</h3>
           <div className="product-description">
-            {isCake ? "手工制作，新鲜食材" : "新鲜水果加料"}
+            {product.description}
           </div>
           
           <div className="product-footer">
