@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { products } from "../data/products";
-import "./style.css"; // 导入样式文件
+import "../style.css"; // 导入样式文件
 
 // 分类映射
 const CATEGORY_MAP = {
