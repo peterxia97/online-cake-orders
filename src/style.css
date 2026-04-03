@@ -718,3 +718,208 @@ body {
 .order-section {
   margin-bottom: 20px;
   padding-bottom: 15px;
+}
+
+/* 联系客服弹窗 */
+.contact-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.contact-modal-content {
+  background: white;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.contact-modal-body {
+  padding: 10px 0;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.contact-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.contact-card h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.contact-card p {
+  margin: 4px 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.card-note {
+  color: #ff6b8b !important;
+  font-size: 11px !important;
+  margin-top: 8px !important;
+  font-weight: 500;
+}
+
+.wechat-qr {
+  margin: 10px 0;
+}
+
+.qr-placeholder {
+  background: #f5f5f5;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.qr-placeholder span {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.qr-placeholder small {
+  color: #999;
+  font-size: 11px;
+}
+
+.contact-form-container {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.contact-form-container h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.contact-form-container > p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.contact-form .form-group {
+  margin-bottom: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #ff6b8b;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.success-message {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.success-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.success-message h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.success-message p {
+  color: #666;
+  font-size: 13px;
+}
+
+.faq-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.faq-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.faq-list {
+  display: grid;
+  gap: 15px;
+}
+
+.faq-item {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.faq-item h5 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+}
+
+.faq-item p {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-modal-content {
+    padding: 15px;
+  }
+}

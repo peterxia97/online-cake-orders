@@ -26,6 +26,14 @@ export default function Home() {
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactFormData, setContactFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const [isContactSubmitted, setIsContactSubmitted] = useState(false);
 
   // 过滤当前分类的产品
   const filteredProducts = products.filter(p => p.category === selectedCategory);
@@ -152,6 +160,32 @@ export default function Home() {
         console.error("复制失败:", err);
         alert("订单生成成功，但复制失败，请手动保存订单信息");
       });
+  };
+
+  // 联系表单处理
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmittingContact(true);
+    
+    // 模拟提交
+    setTimeout(() => {
+      setIsSubmittingContact(false);
+      setIsContactSubmitted(true);
+      
+      // 3秒后重置
+      setTimeout(() => {
+        setIsContactSubmitted(false);
+        setContactFormData({ name: "", email: "", message: "" });
+        setShowContactModal(false);
+      }, 3000);
+    }, 1000);
+  };
+
+  const handleContactChange = (e) => {
+    setContactFormData({
+      ...contactFormData,
+      [e.target.name]: e.target.value
+    });
   };
 
   // 渲染产品卡片
@@ -539,10 +573,134 @@ export default function Home() {
         </div>
       )}
 
+      {/* 联系客服弹窗 */}
+      {showContactModal && (
+        <div className="contact-modal">
+          <div className="contact-modal-content">
+            <div className="modal-header">
+              <h3>联系客服</h3>
+              <button className="close-modal" onClick={() => setShowContactModal(false)}>
+                ✕
+              </button>
+            </div>
+            
+            <div className="contact-modal-body">
+              {/* 联系信息卡片 */}
+              <div className="contact-cards">
+                <div className="contact-card">
+                  <div className="card-icon">📍</div>
+                  <h4>店铺地址</h4>
+                  <p>多糖星球蛋糕店（悉尼CBD店）</p>
+                  <p>123 George St, Sydney NSW 2000</p>
+                  <p className="card-note">仅限自提，不提供配送服务</p>
+                </div>
+
+                <div className="contact-card">
+                  <div className="card-icon">📞</div>
+                  <h4>联系电话</h4>
+                  <p>(02) 1234 5678</p>
+                  <p>营业时间：9:00-20:00</p>
+                  <p className="card-note">非营业时间请留言</p>
+                </div>
+
+                <div className="contact-card">
+                  <div className="card-icon">💬</div>
+                  <h4>微信客服</h4>
+                  <p>扫描二维码添加微信</p>
+                  <div className="wechat-qr">
+                    <div className="qr-placeholder">
+                      <span>微信二维码</span>
+                      <small>请在此处放置您的微信二维码</small>
+                    </div>
+                  </div>
+                  <p className="card-note">添加时请备注"蛋糕订购"</p>
+                </div>
+              </div>
+
+              {/* 联系表单 */}
+              <div className="contact-form-container">
+                <h4>在线留言</h4>
+                <p>我们会尽快回复您的留言</p>
+
+                {isContactSubmitted ? (
+                  <div className="success-message">
+                    <div className="success-icon">✅</div>
+                    <h4>留言已发送！</h4>
+                    <p>感谢您的反馈，我们会尽快联系您</p>
+                  </div>
+                ) : (
+                  <form className="contact-form" onSubmit={handleContactSubmit}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="name"
+                        value={contactFormData.name}
+                        onChange={handleContactChange}
+                        placeholder="请输入您的姓名"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="email"
+                        name="email"
+                        value={contactFormData.email}
+                        onChange={handleContactChange}
+                        placeholder="请输入您的邮箱"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <textarea
+                        name="message"
+                        value={contactFormData.message}
+                        onChange={handleContactChange}
+                        placeholder="请描述您的问题或建议"
+                        rows="3"
+                        required
+                      />
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      className="submit-btn"
+                      disabled={isSubmittingContact}
+                    >
+                      {isSubmittingContact ? "发送中..." : "发送留言"}
+                    </button>
+                  </form>
+                )}
+              </div>
+
+              {/* 常见问题 */}
+              <div className="faq-section">
+                <h4>常见问题</h4>
+                <div className="faq-list">
+                  <div className="faq-item">
+                    <h5>Q: 需要提前多久预订？</h5>
+                    <p>A: 建议至少提前2小时预订，复杂定制蛋糕需要提前24小时。</p>
+                  </div>
+                  <div className="faq-item">
+                    <h5>Q: 可以修改或取消订单吗？</h5>
+                    <p>A: 订单确认后1小时内可以修改或取消，超过时间将无法更改。</p>
+                  </div>
+                  <div className="faq-item">
+                    <h5>Q: 支持哪些支付方式？</h5>
+                    <p>A: 目前仅支持到店支付（现金、银行卡、PayID）。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 联系客服按钮 */}
       <button 
         className="contact-button"
-        onClick={() => window.location.href = "/contact"}
+        onClick={() => setShowContactModal(true)}
         style={{
           position: 'fixed',
           right: '20px',
